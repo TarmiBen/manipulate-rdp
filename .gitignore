@@ -1,0 +1,26 @@
+# Archivos generados por PyCharm
+.idea/
+
+# Archivos y carpetas relacionados con Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+*.venv
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Archivos de logs
+*.log
+
+# Archivos de bases de datos locales
+*.sqlite3
+
+# Configuración de sistemas operativos
+.DS_Store
+Thumbs.db
