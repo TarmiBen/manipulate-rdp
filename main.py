@@ -5,8 +5,12 @@ import sys
 from dotenv import load_dotenv
 import os
 
+from numpy.ma.core import true_divide
+
+
 def firstAlert():
-    alert_image1 = r"C:\Users\SAN BENI\PycharmProjects\manipulatorProscai\images\alerts\alert1.png"
+    alert_image1 = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\alert1.png"
+
     try:
         alert_location = pyautogui.locateOnScreen(alert_image1, confidence=0.6)  # Ajusta el nivel de confianza
         if alert_location:
@@ -20,7 +24,7 @@ def firstAlert():
         print("No se encontró la imagen en la pantalla.")
 
 def secondAlert():
-    alert_image2 = r"C:\Users\SAN BENI\PycharmProjects\manipulatorProscai\images\alerts\alert2.png"
+    alert_image2 = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\alert2.png"
     try:
         alert_location = pyautogui.locateOnScreen(alert_image2, confidence=0.6)  # Ajusta el nivel de confianza
         if alert_location:
@@ -34,7 +38,7 @@ def secondAlert():
 
 def valideScreen(image, program, exit=False):
     try:
-        alert_location = pyautogui.locateOnScreen(image, confidence=0.6)
+        alert_location = pyautogui.locateOnScreen(image, confidence=0.3)
         if not alert_location:
             if exit:
                 sys.exit()
@@ -49,11 +53,13 @@ def valideScreen(image, program, exit=False):
         else:
             return False
 
-def insideProscai(user, password, maxAttempts=10):
-    image_proscai = r"C:\Users\SAN BENI\PycharmProjects\manipulatorProscai\images\alerts\proscai.png"
-    login_image = r"C:\Users\SAN BENI\PycharmProjects\manipulatorProscai\images\alerts\login.png"
-    inside_proscai_image = r"C:\Users\SAN BENI\PycharmProjects\manipulatorProscai\images\alerts\insideProscai.png"
 
+def insideProscai(user, password, maxAttempts=10):
+    image_proscai = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\proscai.jpg"
+    login_image = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\login.png"
+    inside_proscai_image = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\insideProscai.png"
+    time.sleep(3)
+    print("Validando dentro de proscai")
     attempts = 0
     if valideScreen(image_proscai, "Proscai"):
         pyautogui.press('enter')
@@ -79,21 +85,24 @@ def insideProscai(user, password, maxAttempts=10):
                 print("Pantalla de login no detectada, reintentando...")
 
         print("Número máximo de intentos alcanzado, abortando.")
+        return True
 
     else:
         print("Pantalla de Proscai no detectada, reintentando...")
         time.sleep(3)
 
 def cancelDocument(document):
-    pyautogui.hotkey('ctrl', '2')
     time.sleep(1)
+    pyautogui.hotkey('ctrl', '2')
+    time.sleep(2)
     pyautogui.press('tab')
     pyautogui.press('tab')
     pyautogui.write(document)
+    time.sleep(2)
     pyautogui.press('enter')
-    time.sleep(1)
+    time.sleep(3)
     pyautogui.hotkey('ctrl', '8')
-    time.sleep(1)
+    time.sleep(2)
     if valideScreen(image_cancel, "Cancelación"):
         pyautogui.press('tab')
         pyautogui.press('space')
@@ -104,46 +113,21 @@ def cancelDocument(document):
         failed_documents.append(document)
         return False
 
-        
+
 load_dotenv()
 
-rdp_file = r"C:\Users\SAN BENI\Desktop\QRY.rdp"
+rdp_file = r"C:\Users\TIENDA\Desktop\QRY.rdp"
 user = os.getenv("USER")
 password = os.getenv("PASSWORD")
 
 documents = [
-    "J000179755", "J000203767", "J000212039", "J000212055", "J000212079",
-    "J000212083", "J000212195", "J000212205", "J000212256", "J000212307", "J000212321",
-    "J000212323", "J000212332", "J000212373", "J000212375", "J000212382", "J000212403",
-    "J000212421", "J000212425", "J000212437", "J000212442", "J000212548", "J000212606",
-    "J000212613", "J000212629", "J000212660", "J000212665", "J000212720", "J000212729",
-    "J000212739", "J000212801", "J000212843", "J000212855", "J000212869", "J000212975",
-    "J000212995", "J000213075", "J000213083", "J000213190", "J000213217", "J000213229",
-    "J000213267", "J000213269", "J000213296", "J000213299", "J000213347", "J000213362",
-    "J000213363", "J000213391", "J000213393", "J000213475", "J000213521", "J000213570",
-    "J000213580", "J000213591", "J000213659", "J000213665", "J000213680", "J000213687",
-    "J000213707", "J000213714", "J000213725", "J000213763", "J000213805", "J000213841",
-    "J000213877", "J000213907", "J000214001", "J000214019", "J000214021", "J000214054",
-    "J000214065", "J000214067", "J000214079", "J000214150", "J000214198", "J000214206",
-    "J000214259", "J000214277", "J000214379", "J000214382", "J000214390", "J000214421",
-    "J000214443", "J000214458", "J000214488", "J000214519", "J000214536", "J000215623",
-    "J000216979", "J000218687", "J000218833", "J000222336", "J000224198", "J000246620",
-    "J000247049", "J000247551", "J000247719", "J000247802", "J000247943", "J000248004",
-    "J000256971", "J000262034", "J000263434", "J000266218", "J000266857", "J000268746",
-    "J000270020", "J000271387", "J000272089", "J000272674", "J000272676", "J000272679",
-    "J000272680", "J000272681", "J000272683", "J000272684", "J000272729", "J000272750",
-    "J000273281", "J000273413", "J000274430", "J000274498", "J000274578", "J000274880",
-    "J000275034", "J000275268", "J000275328", "J000275357", "J000275359", "J000275402",
-    "J000275403", "J000275444", "J000276084", "J000276170", "J000276710", "J000277013",
-    "J000277245", "J000277246", "J000277563", "J000277567", "J000277748", "J000277918",
-    "J000277957", "J000277962", "J000277993", "J000278026", "J000278191", "J000278201",
-    "J000278204", "J000278319", "J000278344", "J000278497", "J000278538", "J000278582",
-    "J000278584", "J000278698"
+   "J000235089"
 ]
 failed_documents = []
 
 
 subprocess.Popen(["mstsc", "/f", rdp_file])
+
 time.sleep(2)
 firstAlert()
 time.sleep(2)
@@ -151,13 +135,26 @@ secondAlert()
 time.sleep(5)
 
 # OPEN PROSCAI valide inside
-image_desktoop = r"C:\Users\SAN BENI\PycharmProjects\manipulatorProscai\images\alerts\escritorio.png"
-image_cancel = r"C:\Users\SAN BENI\PycharmProjects\manipulatorProscai\images\alerts\cancel.png"
-file_path = r"C:\Users\SAN BENI\PycharmProjects\manipulatorProscai\failed_documents.txt"
-valideScreen(image_desktoop, "Escritorio")
-time.sleep(2)
+image_desktoop = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\escritorio.png"
+image_cancel = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\cancel.png"
+file_path = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\manipulatorProscai\failed_documents.txt"
 
+
+screen_width, screen_height = pyautogui.size()
+center_x, center_y = screen_width // 2, screen_height // 2
+
+pyautogui.moveTo(center_x, center_y, duration=0.5)
+pyautogui.click()
+
+time.sleep(1)
+pyautogui.press('p')
+pyautogui.press('enter')
+
+
+time.sleep(1)
+print("entrado a proscai")
 if insideProscai(user, password):
+    time.sleep(1)
     for document in documents:
         if cancelDocument(document):
             print('Documento cancelado', document)
