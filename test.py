@@ -45,6 +45,10 @@ def cancelDocument(document, attempts=0):
                 pyautogui.press('tab')
                 pyautogui.press('enter')
                 time.sleep(2)
+                if valideScreen(image_regenerate, "Regenerar"):
+                    # press tecla N
+                    pyautogui.press('n')
+                    time.sleep(1)
                 return True
             else:
                 pyautogui.press('escape')
@@ -70,6 +74,7 @@ documents = ["J000232774", "J000233623", "J000233692", "J000234062", "J000234271
 failed_documents = []
 image_cancel = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\cancel.png"
 image_search = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\search.jpg"
+image_regenerate = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\images\alerts\regenerar.jpg"
 file_path = r"C:\Users\TIENDA\Desktop\AMS\manipulate-rdp\failed_documents.txt"
 
 print('inicio de proceso...')
